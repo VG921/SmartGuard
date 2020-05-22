@@ -1,0 +1,8 @@
+function1:
+
+從 ICAR 上獲取 "Find details" 和 "Root cause"兩欄位的文字做相加成一串文字，
+成為模型的input
+丟入模型做預測
+輸出一個list 按順序第一名到第五名，五個類別輸出
+
+
