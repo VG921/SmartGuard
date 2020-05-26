@@ -1,0 +1,13 @@
+curl -d "&find_detail='pe|f1331294 譚麒:1.觀察不良為物料來料不良,不良鉚釘鉚合不良. 2.iqc和nwe確認該不良位置鉚釘拉釘槍拉卡不到位,造成鉚釘浮高.' &rc_category='esd' &choose_mode='ca' " -X POST http://localhost:8002/capa_recommend
+
+
+
+
+
+
+
+#text_details = 'pe|f1331294 譚麒:1.觀察不良為物料來料不良,不良鉚釘鉚合不良. 2.iqc和nwe確認該不良位置鉚釘拉釘槍拉卡不到位,造成鉚釘浮高.'
+#input_category = 'Human discipline'
+#mode = 'ca'
+#question = '0.0.0' 
+#key_word_list, recommend_index_list = capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode)
