@@ -10,6 +10,7 @@ import pandas as pd
 from rc_predict import rc_predict
 from capa_recommended import capa_recommended
 from capa_recommended.capa_recommended import capa_rank_calculate
+from capa_score.update_capa_score import calaulate_sililarity_prepare
 
 
 # 可參考網站 https://www.flaskapi.org/
@@ -36,7 +37,9 @@ def rc_category_predict():
 @app.route('/capa_recommend', methods=['POST'])
 def capa_recommend():
     # smart_guard_data = ####須從database 取得資料
-    smart_guard_data = pd.read_csv ("RC_Category_20V_04_27_CAPA_score.csv")  #測試用
+    # 需要欄位 'rc_category_final2'、'ca_score'、'pa_score'、'ca_supervisor_evaluation'、'pa_supervisor_evaluation'、
+    #         'finds_detail'、'root_cause'、'corrective_action'、'preventive_action'、'question'
+    smart_guard_data = pd.read_csv ("RC_Category_20V_04_27_CAPA_score.csv")  ##=>測試用
 
     text_details = request.data.get('find_detail','')
     text_details = capa_recommended.cc.convert(text_details)
@@ -54,7 +57,19 @@ def capa_recommend():
 
     return {'keyword_list': key_word_list,'text_list':recommend_list}
 
+@app.route('/capa_score_calclation', methods=['POST'])
+def capa_score_calclation():
+    # smart_guard_data = ####須從database 取得資料　　　
+    # 需要欄位 'rc_category_final2'、'ca_score'、'pa_score'、'event_date'、
+    #          、'corrective_action'、'preventive_action'、'question'
 
+    smart_guard_data = pd.read_csv ("RC_Category_20V_04_27_CAPA_score.csv")  #測試用
+    print('Waiting for calculation...')
+    calaulate_sililarity_prepare(smart_guard_data)
+    # smart_guard_data.to_csv('RC_Category_20V_test3_CAPA_score.csv',index =False, encoding = 'utf_8_sig') #測試用
+
+    #更新 database中的 'ca_score'、'pa_score'
+    return {'ca_sore':list(smart_guard_data.ca_score),'pa_sore':list(smart_guard_data.pa_score)}
 
 
 if __name__ == "__main__":
