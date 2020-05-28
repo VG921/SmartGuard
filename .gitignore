@@ -2,3 +2,8 @@
 .*/
 test-input
 *.DS_Store
+
+# Docker setup file
+# .dockerignore
+# Dockerfile
+docker-compose.yml
