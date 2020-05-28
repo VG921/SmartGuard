@@ -1,0 +1,2 @@
+curl -d "find_detail='bst 測試工站，隨機抽取測試治具 gang-connector, 所貼使用期限已過，沒有及時保養' " -X POST http://localhost:8002/rc_category_pred
+
