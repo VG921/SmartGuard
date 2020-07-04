@@ -33,7 +33,7 @@ def tfidf_similarity(sentence1, sentence2):
     return np.dot(vectors[0], vectors[1]) / (norm(vectors[0]) * norm(vectors[1]))
 
 #Calculate similarity and deduction points
-def calaulate_sililarity_and_score(smart_guard_data,filterd_data):
+def calaulate_similarity_and_score(smart_guard_data,filterd_data):
     # global smart_guard_data
     for i in range(len(filterd_data.index)):
         idex1 = filterd_data.index[i]
@@ -82,7 +82,7 @@ R_C_list = ['CAPA effectiveness', 'Competency/Workload', 'Document/Spec gap', 'E
 R_C_list = [item.lower() for item in R_C_list]
 
 
-def calaulate_sililarity_prepare(smart_guard_data):
+def calaulate_similarity_prepare(smart_guard_data):
     ##str.lower()  => 轉換小寫
     smart_guard_data['corrective_action'] = smart_guard_data['corrective_action'].astype(str).str.lower()
     smart_guard_data['preventive_action'] = smart_guard_data['preventive_action'].astype(str).str.lower()
@@ -107,7 +107,7 @@ def calaulate_sililarity_prepare(smart_guard_data):
             # smart_guard_data[ (smart_guard_data.rc_category_final2 ==rc) * (smart_guard_data.question ==questions)].ca_score.fillna(0)
             smart_guard_data.loc[(smart_guard_data.rc_category_final2 ==rc) * (smart_guard_data.question ==questions),'ca_score'] = 0
             smart_guard_data.loc[(smart_guard_data.rc_category_final2 ==rc) * (smart_guard_data.question ==questions),'pa_score'] = 0
-            smart_guard_data = calaulate_sililarity_and_score(smart_guard_data,findingdata2)
+            smart_guard_data = calaulate_similarity_and_score(smart_guard_data,findingdata2)
 
     return smart_guard_data
 

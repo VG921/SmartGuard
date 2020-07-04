@@ -11,7 +11,7 @@ import pandas as pd
 from rc_predict import rc_predict
 from capa_recommended import capa_recommended
 from capa_recommended.capa_recommended import capa_rank_calculate
-from capa_score.update_capa_score import calaulate_sililarity_prepare
+from capa_score.update_capa_score import calaulate_similarity_prepare
 
 
 # 可參考網站 https://www.flaskapi.org/
@@ -64,7 +64,7 @@ def capa_score_calclation():
 
     smart_guard_data = pd.read_csv("RC_Category_20V_04_27_CAPA_score.csv")  # 測試用
     print('Waiting for calculation...')
-    calaulate_sililarity_prepare(smart_guard_data)
+    calaulate_similarity_prepare(smart_guard_data)
     # smart_guard_data.to_csv('RC_Category_20V_test3_CAPA_score.csv',index =False, encoding = 'utf_8_sig') #測試用
 
     # 更新 database中的 'ca_score'、'pa_score'
