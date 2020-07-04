@@ -61,10 +61,12 @@ def capa_score_calclation():
     # smart_guard_data = ####須從database 取得資料
     # 需要欄位 'rc_category_final2'、'ca_score'、'pa_score'、'event_date'、
     #          、'corrective_action'、'preventive_action'、'question'
-
+    #行時間約一分鐘
     smart_guard_data = pd.read_csv("RC_Category_20V_04_27_CAPA_score.csv")  # 測試用
     print('Waiting for calculation...')
     calaulate_similarity_prepare(smart_guard_data)
+    
+    #可直接儲存蓋掉原來的smart_guard_data
     # smart_guard_data.to_csv('RC_Category_20V_test3_CAPA_score.csv',index =False, encoding = 'utf_8_sig') #測試用
 
     # 更新 database中的 'ca_score'、'pa_score'
