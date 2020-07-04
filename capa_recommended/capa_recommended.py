@@ -13,13 +13,13 @@ from utils.opencc_self import OpenCC
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 print(BASE_DIR)
 
-jieba_dist = os.path.join(BASE_DIR, 'data/dict.txt')
-jieba_dist_2 = os.path.join(BASE_DIR, 'data/idf.txt')
-import jieba
-jieba.set_dictionary(jieba_dist)
-jieba.initialize()
-import jieba.analyse
-jieba.analyse.set_idf_path(jieba_dist_2)
+# jieba_dist = os.path.join(BASE_DIR, 'data/dict.txt')
+# jieba_dist_2 = os.path.join(BASE_DIR, 'data/idf.txt')
+# import jieba
+# jieba.set_dictionary(jieba_dist)
+# jieba.initialize()
+# import jieba.analyse
+# jieba.analyse.set_idf_path(jieba_dist_2)
 
 # opencc 位置
 c_DIR = os.path.join(BASE_DIR, 'data/opencc/config')
@@ -46,15 +46,8 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 	#簡轉繁
 	text_details = cc.convert(text_details)
 	#根據敘述 抓出關鍵字!!!        
-	text_list = jieba.lcut(str(text_details), cut_all=False, HMM = True)
-	text_list = [x for x in text_list if x != ' ']
-	text_list = list(set(text_list)) #去除重複 
-	key_word_list = []
-	# print('推薦問題敘述中的關鍵字:')
-	for word in text_list:  
-	    if word in  feature_list:     #依據關鍵詞表篩選
-	        # print(word,end=' ')
-	        key_word_list.append(word)#!!!!!! 輸出1. 找到的關鍵字 list
+	key_word_list = [s for s in feature_list if s in text_details]
+	key_word_list = list(set(key_word_list))
 
 	data_range = smart_guard_data[smart_guard_data['rc_category_final2']==input_category]
 	data_range = data_range.fillna('0')#辭典空資料補0
