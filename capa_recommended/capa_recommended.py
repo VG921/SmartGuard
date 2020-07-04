@@ -126,9 +126,11 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 		pa_rank_list =  list(p1_pa_rank.index) + list(p2_pa_rank.index) + list(p3_pa_rank.index) + list(p4_pa_rank.index)
 		recommend_index_list = pa_rank_list
 
+	
+
 	if mode =='ca':
-		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].corrective_action)
+		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].corrective_action.dropna())
 	else:
-		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].preventive_action)
+		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].preventive_action.dropna())
 	return key_word_list, recommend_list
 	
