@@ -31,6 +31,7 @@ def index():
 def rc_category_predict():
     text_details = request.data.get('find_detail', '')
     text_details = rc_predict.cc.convert(text_details)
+    text_details = text_details.lower()
     first, top5 = rc_category_model.predict(text_details)
     toplist = top5.rc_category.tolist()
     return {'top5': toplist}
