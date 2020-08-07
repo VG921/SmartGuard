@@ -31,29 +31,54 @@ d_DIR = os.path.join(BASE_DIR, 'data/opencc/dictionary')
 
 
 # RC category列表 共20類
+# RC_category = [
+    #     'CAPA effectiveness',
+    #     'Competency/Workload',
+    #     'Document/Spec gap',
+    #     'Equipment/tool/Fixture Mgmt',
+    #     'ESD',
+    #     'Human discipline',
+    #     'Infrastructure/Environment control/5S',
+    #     'Training and certificate',
+    #     'Leadership engagement',
+    #     'Materials management',
+    #     'Mfg process design',
+    #     'Parameter setting/control',
+    #     'Product HW design',
+    #     'Product SW design',
+    #     'Program/Script control',
+    #     'Record management',
+    #     'SOP discipline',
+    #     'Supplier quality',
+    #     'System tool',
+    #     'Timely communication/Escalation',
+    # ]
+# RC_category = [item.lower() for item in RC_category]  # 轉小寫
+
 RC_category = [
-    'CAPA effectiveness',
-    'Competency/Workload',
-    'Document/Spec gap',
-    'Equipment/tool/Fixture Mgmt',
-    'ESD',
-    'Human discipline',
-    'Infrastructure/Environment control/5S',
-    'Training and certificate',
-    'Leadership engagement',
-    'Materials management',
-    'Mfg process design',
-    'Parameter setting/control',
-    'Product HW design',
-    'Product SW design',
-    'Program/Script control',
-    'Record management',
-    'SOP discipline',
-    'Supplier quality',
-    'System tool',
-    'Timely communication/Escalation',
-]
-RC_category = [item.lower() for item in RC_category]  # 轉小寫
+        'human discipline|人員紀律問題',
+        'equipment/tool/fixture mgmt|設備/治工具管理',
+        'supplier quality|供應商品質問題',
+        'sop discipline|SOP製作問題',
+        'materials management|物料管理',
+        'infrastructure/environment control/5s|基礎設施/環境控制/5S',
+        'system tool|系統工具',
+        'record management|記錄管理',
+        'esd|ESD相關問題',
+        'document/spec gap|文件/規格差異',
+        'mfg process design|製造工藝設計',
+        'training and certificate|培訓與認證',
+        'program/script control|程序/腳本控制',
+        'parameter setting/control|參數設置/控制',
+        'capa effectiveness|對策有效性',
+        'leadership engagement|領導參與',
+        'product hw design|產品硬件設計問題',
+        'timely communication/escalation|及時溝通/上報',
+        'competency/workload|能力/工作量',
+        'product sw design|產品軟件設計問題',
+    ]
+RC_category = [ x for x in RC_category]
+RC_category_id = dict(zip(RC_category, range(len(RC_category))))
 
 
 class CnnModel:
@@ -83,15 +108,15 @@ class CnnModel:
         score_matrix = self.session.run(self.model.y_pred_matrix, feed_dict=feed_dict)
 
         acc_data = pd.DataFrame(index=['rank1', 'rank2', 'rank3', 'rank4', 'rank5'], columns=['rc_category'])
-        acc_data.loc['rank1', 'rc_category'] = self.categories[(score_matrix[0]).argmax()]
+        acc_data.loc['rank1', 'rc_category'] = RC_category[(score_matrix[0]).argmax()]
         score_matrix[0, (score_matrix[0]).argmax()] = np.min(score_matrix[0]) - 100
-        acc_data.loc['rank2', 'rc_category'] = self.categories[(score_matrix[0]).argmax()]
+        acc_data.loc['rank2', 'rc_category'] = RC_category[(score_matrix[0]).argmax()]
         score_matrix[0, (score_matrix[0]).argmax()] = np.min(score_matrix[0]) - 100
-        acc_data.loc['rank3', 'rc_category'] = self.categories[(score_matrix[0]).argmax()]
+        acc_data.loc['rank3', 'rc_category'] = RC_category[(score_matrix[0]).argmax()]
         score_matrix[0, (score_matrix[0]).argmax()] = np.min(score_matrix[0]) - 100
-        acc_data.loc['rank4', 'rc_category'] = self.categories[(score_matrix[0]).argmax()]
+        acc_data.loc['rank4', 'rc_category'] = RC_category[(score_matrix[0]).argmax()]
         score_matrix[0, (score_matrix[0]).argmax()] = np.min(score_matrix[0]) - 100
-        acc_data.loc['rank5', 'rc_category'] = self.categories[(score_matrix[0]).argmax()]
+        acc_data.loc['rank5', 'rc_category'] = RC_category[(score_matrix[0]).argmax()]
 
         return self.categories[y_pred_cls[0]], acc_data
 

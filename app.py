@@ -52,6 +52,7 @@ def capa_recommend():
     question = '0.0.0'  # request.data.get('question', '')現階段不開放
     input_category = eval(input_category)  # 去除引號
     mode = eval(mode)  # 去除引號
+    ###多增加 回傳分數值 評鑑分數
     key_word_list, recommend_list = capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode)
 
     return {'keyword_list': key_word_list, 'text_list': recommend_list}
