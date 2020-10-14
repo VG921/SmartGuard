@@ -43,17 +43,20 @@ def capa_recommend():
     # 需要欄位 'rc_category_final2'、'ca_score'、'pa_score'、'ca_supervisor_evaluation'、'pa_supervisor_evaluation'、
     #         'finds_detail'、'root_cause'、'corrective_action'、'preventive_action'、'question'
     smart_guard_data = pd.read_csv("RC_Category_20V_04_27_CAPA_score.csv")  # =>測試用
+    problem_capa = pd.read_excel("problem_type_capa.xlsx")
 
     text_details = request.data.get('find_detail', '')
     text_details = capa_recommended.cc.convert(text_details)
     input_category = request.data.get('rc_category')
     mode = request.data.get('choose_mode')  # 從前端得到訊號 只接'ca'、'pa'兩種
+    problem_type =  request.data.get('problem_type') #10/12新增 problem type 設為最優先推薦依據
 
     question = '0.0.0'  # request.data.get('question', '')現階段不開放
     input_category = eval(input_category)  # 去除引號
     mode = eval(mode)  # 去除引號
+    problem_type = eval(problem_type)
     ###多增加 回傳分數值 評鑑分數
-    key_word_list, recommend_list = capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode)
+    key_word_list, recommend_list = capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode, problem_type, problem_capa)
 
     return {'keyword_list': key_word_list, 'text_list': recommend_list}
 

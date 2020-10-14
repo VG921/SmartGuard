@@ -39,7 +39,7 @@ try:
 except NameError:
     unicode = str
 
-def capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode):
+def capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode, problem_type, problem_capa):
 	#轉小寫
 	smart_guard_data['rc_category_final2'] = smart_guard_data['rc_category_final2'].astype(str).str.lower()
 	input_category = input_category.lower()
@@ -119,11 +119,15 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 		pa_rank_list =  list(p1_pa_rank.index) + list(p2_pa_rank.index) + list(p3_pa_rank.index) + list(p4_pa_rank.index)
 		recommend_index_list = pa_rank_list
 
-	
-
 	if mode =='ca':
 		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].corrective_action.dropna())
+		if sum(problem_capa['Problem_Type'] == problem_type)==1 :
+			add_ca = list(problem_capa.loc[(problem_capa['Problem_Type'] == problem_type),'CA_Recommend'])
+			recommend_list = add_ca + recommend_list
 	else:
 		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].preventive_action.dropna())
+		if sum(problem_capa['Problem_Type'] == problem_type)==1 :
+			add_pa = list(problem_capa.loc[(problem_capa['Problem_Type'] == problem_type),'PA_Recommend'])
+			recommend_list = add_pa + recommend_list
 	return key_word_list, recommend_list
 	
