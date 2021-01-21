@@ -56,9 +56,9 @@ def capa_recommend():
     mode = eval(mode)  # 去除引號
     problem_type = eval(problem_type)
     ###多增加 回傳分數值 評鑑分數
-    key_word_list, recommend_list = capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode, problem_type, problem_capa)
+    key_word_list, recommend_list, recommend_index = capa_rank_calculate(smart_guard_data, text_details, input_category, question, mode, problem_type, problem_capa)
 
-    return {'keyword_list': key_word_list, 'text_list': recommend_list}
+    return {'keyword_list': key_word_list, 'text_list': recommend_list, 'text_index': recommend_index}
 
 
 @app.route('/capa_score_calclation', methods=['POST'])

@@ -121,13 +121,19 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 
 	if mode =='ca':
 		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].corrective_action.dropna())
+		recommend_index = ['歷史建議','歷史建議','歷史建議','歷史建議','歷史建議']
 		if sum(problem_capa['Problem_Type'] == problem_type)==1 :
 			add_ca = list(problem_capa.loc[(problem_capa['Problem_Type'] == problem_type),'CA_Recommend'])
 			recommend_list = add_ca + recommend_list
+			recommend_index = ['專家建議','歷史建議','歷史建議','歷史建議','歷史建議']
+		recommend_list = recommend_list[0:5]
 	else:
 		recommend_list = list(smart_guard_data.iloc[recommend_index_list,:].preventive_action.dropna())
+		recommend_index = ['歷史建議','歷史建議','歷史建議','歷史建議','歷史建議']
 		if sum(problem_capa['Problem_Type'] == problem_type)==1 :
 			add_pa = list(problem_capa.loc[(problem_capa['Problem_Type'] == problem_type),'PA_Recommend'])
 			recommend_list = add_pa + recommend_list
-	return key_word_list, recommend_list
+			recommend_index = ['專家建議','歷史建議','歷史建議','歷史建議','歷史建議']
+		recommend_list = recommend_list[0:5]
+	return key_word_list, recommend_list, recommend_index
 	
