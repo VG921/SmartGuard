@@ -42,7 +42,7 @@ def capa_recommend():
     # smart_guard_data = ####須從database 取得資料
     # 需要欄位 'rc_category_final2'、'ca_score'、'pa_score'、'ca_supervisor_evaluation'、'pa_supervisor_evaluation'、
     #         'finds_detail'、'root_cause'、'corrective_action'、'preventive_action'、'question'
-    smart_guard_data = pd.read_csv("RC_Category_20V_04_27_CAPA_score.csv")  # =>測試用
+    smart_guard_data = pd.read_csv("RC_Category_21V_03_test_CAPA_score.csv")  # =>測試用
     problem_capa = pd.read_excel("problem_type_capa.xlsx")
 
     text_details = request.data.get('find_detail', '')
@@ -67,7 +67,7 @@ def capa_score_calclation():
     # 需要欄位 'rc_category_final2'、'ca_score'、'pa_score'、'event_date'、
     #          、'corrective_action'、'preventive_action'、'question'
     #行時間約一分鐘
-    smart_guard_data = pd.read_csv("RC_Category_20V_04_27_CAPA_score.csv")  # 測試用
+    smart_guard_data = pd.read_csv("RC_Category_21V_03_test_CAPA_score.csv")  # 測試用
     print('Waiting for calculation...')
     calaulate_similarity_prepare(smart_guard_data)
     
