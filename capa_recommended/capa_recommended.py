@@ -53,8 +53,8 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 	data_range = data_range.fillna('0')#辭典空資料補0
 	data_range = data_range[data_range.ca_score != -100]
 	#算評鑑總分 
-	data_range['total_ca_score'] = data_range['ca_score'] + data_range['ca_supervisor_evaluation']
-	data_range['total_pa_score'] = data_range['pa_score'] + data_range['pa_supervisor_evaluation']
+	data_range['total_ca_score'] = data_range['ca_score'] + data_range['ca_supervisor_evaluation']*10
+	data_range['total_pa_score'] = data_range['pa_score'] + data_range['pa_supervisor_evaluation']*10
 	#######################################        排序       ################################################
 
 	### 關鍵詞 Rank 
@@ -82,7 +82,7 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 	if mode =='ca':
 		###CA   rank
 		data_range['Mid_ca_score'] = grouped['total_ca_score'].transform(lambda x: (max(x) + min(x))/2)
-		data_range['Q_ca_score_High'] = data_range['total_ca_score']>data_range['Mid_ca_score']
+		data_range['Q_ca_score_High'] = data_range['total_ca_score']>=data_range['Mid_ca_score']
 		data_range['keyword_score_ca'] = keyword_score_c
 		#phase1   same_Q = True   Q_ca_score_High = True
 		phase12_data = data_range[data_range['same_Q']==True]
@@ -104,7 +104,7 @@ def capa_rank_calculate(smart_guard_data, text_details, input_category, question
 	else:
 		###PA   rank
 		data_range['Mid_pa_score'] = grouped['total_pa_score'].transform(lambda x: (max(x) + min(x))/2)
-		data_range['Q_pa_score_High'] = data_range['total_pa_score']>data_range['Mid_pa_score']
+		data_range['Q_pa_score_High'] = data_range['total_pa_score']>=data_range['Mid_pa_score']
 		data_range['keyword_score_pa'] = keyword_score_p
 		phase12_data = data_range[data_range['same_Q']==True]
 		phase1_pa_data = phase12_data[phase12_data['Q_pa_score_High']==True]
