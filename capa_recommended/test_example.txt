@@ -1,6 +1,11 @@
 curl -d "&find_detail='pe|f1331294 譚麒:1.觀察不良為物料來料不良,不良鉚釘鉚合不良. 2.iqc和nwe確認該不良位置鉚釘拉釘槍拉卡不到位,造成鉚釘浮高.' &rc_category='esd' &choose_mode='ca' " -X POST http://localhost:8002/capa_recommend
 
 
+ex:
+curl -d "&find_detail='1.  2pcs old stencils (E445 - implemented data 20140819 / E005 - implemented data 20170314) with apparent deformation was found and they failed tension test with lower 20 N/cm (spec: min 30 N/cm). However, the usage time recorded in all-part system is only 1 time used for E445 and 8 times for E005. Looks the traceabilty was not managed accurately. \n2.  1pc new stencil (E318 - implmented date 20200424) also failed tension test with lower 30 N/cm after using 10798 times (stencil shelf life spec: <50000). \nBig gap is found on stencil management process, suggest to have deep-dive investigation and immediate improvement. 1.E005&E445鋼網為NPI驗證鋼網，因NPI驗證系統記錄使用次數僅有幾次，鋼網驗證後長時間不用，工程師未及時報廢，鋼網房未及時清理點檢鋼網庫存狀況，導緻放置時間過長鋼網開膠變形. 2.針對E318張力不達標，有連續抽測5PCS 鋼網，發現張力都偏小，個別點位小於30 N/cm,為驗證是否時張力計異常，有借到制六張力計做測試對比，使用6處張力計檢測E318 鋼網，張力大與30NN/cm，發現我處張力計測試數值比制六測試數值偏小5~10N/cm,且觀察張力計指針轉動不靈活，表頭鬆動，有反覆回彈現象，儀器校正中心確認為張力計故障.與作業人員和Server工程師確認在此之前Server所檢查鋼網測試正常，張力計發現異常可確認為在SERVER 測試之後我們檢查之前發生異常.' &rc_category='Equipment/tool/Fixture Mgmt' &choose_mode='ca' &question='4.3.1' &problem_type='' " -X POST http://localhost:8002/capa_recommend
+
+ex:
+curl -d "&find_detail='Operator directly grab heatsink to move the board out from fixture after heatsink just attached. Its risky of causing heatsink drop in the process behind. Handling mindset need to be enhanced to minimize the potential risk of handling products. The OP qualification process is incomplete. Which caused that OP quality mindset not enough but was qualified in the production line.' &rc_category='human discipline' &choose_mode='ca'  &problem_type='' " -X POST http://localhost:8002/capa_recommend
 
 
 

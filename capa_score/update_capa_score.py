@@ -94,8 +94,8 @@ def calaulate_similarity_prepare(smart_guard_data):
 
     smart_guard_data.loc[:,'ca_score'] = -100
     smart_guard_data.loc[:,'pa_score'] = -100
-    smart_guard_data.loc[:,'ca_supervisor_evaluation'] = 0
-    smart_guard_data.loc[:,'pa_supervisor_evaluation'] = 0
+    # smart_guard_data.loc[:,'ca_supervisor_evaluation'] = 0
+    # smart_guard_data.loc[:,'pa_supervisor_evaluation'] = 0
 
     #同 RC category 第一層
     for rc  in R_C_list:
